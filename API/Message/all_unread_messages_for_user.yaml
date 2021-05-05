@@ -1,0 +1,13 @@
+get list of all unread messages for the logged in user that's available in the database
+---
+tags:
+    - messages
+responses:
+    200:
+        description: successful operation
+        schema:
+            $ref: '#/definitions/Message'
+    400:
+        description: No Messages for this user
+    401:
+        description: Token is missing!

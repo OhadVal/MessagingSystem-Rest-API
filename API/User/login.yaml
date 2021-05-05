@@ -1,0 +1,13 @@
+Logs the user in and returns a token to use for other operations
+---
+tags:
+    - user
+responses:
+    200:
+        description: OK
+        schema:
+            $ref: '#/definitions/User'
+    403:
+        description: User is unauthorized to read this message
+    404:
+      description: Message not found

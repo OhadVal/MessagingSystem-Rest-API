@@ -1,0 +1,26 @@
+creates a new user
+---
+tags:
+    - user
+produces:
+    - application/json
+parameters:
+    - in: body
+      name: body
+      required: true
+      schema:
+          type: object
+          properties:
+              username:
+                  type: string
+                  example: my_test_user
+              password:
+                  type: string
+                  example: dgfg#@%jdf1gz
+responses:
+    200:
+        description: A operation succeeded message
+        schema:
+            $ref: '#/definitions/User'
+    400:
+        description: Missing values in request

@@ -1,0 +1,34 @@
+creates a new message
+---
+tags:
+    - messages
+produces:
+    - application/json
+parameters:
+    - in: body
+      name: body
+      required: true
+      schema:
+          type: object
+          properties:
+              sender:
+                  type: string
+                  example: test_sender
+              receiver:
+                  type: string
+                  example: test_receiver
+              subject:
+                  type: string
+                  example: Hey
+              message:
+                  type: string
+                  example: New phone, who dis?
+responses:
+    200:
+        description: Get the newly created message
+        schema:
+            $ref: '#/definitions/Message'
+    400:
+        description: Invalid request
+    401:
+        description: Token is missing!

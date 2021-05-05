@@ -1,0 +1,20 @@
+mark a message (by id) as read, only the reciever of the message can perform this action
+---
+tags:
+    - messages
+parameters:
+    - in: path
+      name: message_id
+      type: integer
+      required: true
+responses:
+    200:
+        description: OK
+        schema:
+            $ref: '#/definitions/Message'
+    401:
+      description: Token is missing!
+    403:
+        description: User is unauthorized to read this message
+    404:
+      description: Message not found

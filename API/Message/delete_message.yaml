@@ -1,0 +1,22 @@
+delete a message (by id), only the reciever or sender of the message can perform this action
+---
+tags:
+    - messages
+parameters:
+    - in: path
+      name: message_id
+      type: integer
+      required: true
+responses:
+    200:
+        description: successful operation - message deleted and deleted message will be return.
+        schema:
+            $ref: '#/definitions/Message'
+    400:
+        description: Invalid request
+    401:
+      description: Token is missing!
+    403:
+      description: User is unauthorized to read this message
+    404:
+      description: Message not found
