@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 from API.Message.message_api import message_blueprint
 from API.User.user_api import user_blueprint
 from database import db, ma
@@ -34,6 +34,10 @@ def create_app():
     # Start Flasgger using a template from APISpec
     swag = Swagger(app, template=template)
 
+    # Make Swagger the main page
+    @app.route("/")
+    def index():
+        return redirect('/apidocs/')
 
     return app
 
