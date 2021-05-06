@@ -18,8 +18,9 @@ def get_all_messages_for_user(current_user: User):
     Returns: JSON Object
     """
     all_messages_for_user = Message.query.filter(
-        (Message.sender == current_user.username) | (Message.receiver == current_user.username)
-    ).get_or_404(description='No Messages for this user')
+        (Message.sender == current_user.username) | (Message.receiver == current_user.username)).all()
+    if not all_messages_for_user:
+        return jsonify({'error': 'Uo Messages for this user'})
     return jsonify(messages_schema.dump(all_messages_for_user))
 
 
@@ -60,6 +61,14 @@ def read_message(current_user: User, message_id: int):
 @token_required
 @swag_from('delete_message.yaml')
 def delete_message(current_user: User, message_id: int):
+    """
+    Deletes a message, only if the user is the receiver
+    Args:
+        current_user: logged in user
+        message_id: message to read
+
+    Returns: JSON (message or error)
+    """
     message = Message.query.filter_by(id=message_id).first_or_404(description='No message with this id')
     # Only if receiver can mark the message as read
     if message.receiver == current_user.username or message.sender == current_user.username:
@@ -73,6 +82,13 @@ def delete_message(current_user: User, message_id: int):
 @token_required
 @swag_from('new_message.yaml')
 def create_message(current_user: User):
+    """
+        Writes a new message to the DB
+        Args:
+            current_user: logged in user
+
+        Returns: JSON (message or error)
+        """
     data = request.get_json(force=True)
     try:
         # Check if receiver exist in DB

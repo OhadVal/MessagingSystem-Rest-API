@@ -25,7 +25,7 @@ def create_app():
     # ---------- Swagger ----------
     # Create an APISpec
     spec = APISpec(
-        title='CandidateFinder REST API',
+        title='MessagingSystem REST API',
         version='1.0',
         openapi_version='2.0',
         plugins=[FlaskPlugin(), MarshmallowPlugin()]
@@ -33,6 +33,7 @@ def create_app():
     template = spec.to_flasgger(app, definitions=[UserSchema, MessageSchema])
     # Start Flasgger using a template from APISpec
     swag = Swagger(app, template=template)
+
 
     return app
 
